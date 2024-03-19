@@ -7,13 +7,70 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: BaseController, UITableViewDelegate {
+    private let UserCardScroll = UITableView()
+    private var temporaryUsers = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    private var birthdaySort = false
+    private var users = [Item]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        UserCardScroll.reloadData()
+        APIManager.shared.getUsers { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let usersData):
+                    self.temporaryUsers=[]
+                    self.users = usersData.items
+                    self.UserCardScroll.reloadData()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
-
-
 }
-
+extension ViewController{
+    override func addViews() {
+        UserCardScroll.delegate = self
+        view.addSubview(UserCardScroll)
+    }
+    override func layoutViews() {
+        NSLayoutConstraint.activate([
+        UserCardScroll.topAnchor.constraint(equalTo: view.topAnchor),
+        UserCardScroll.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+        UserCardScroll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+        UserCardScroll.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        UserCardScroll.translatesAutoresizingMaskIntoConstraints = false
+    }
+    override func configure() {
+        view.backgroundColor = .white
+        UserCardScroll.register(UserCardTableViewCell.self, forCellReuseIdentifier: "UserCardCell")
+        UserCardScroll.dataSource = self
+        UserCardScroll.rowHeight = UITableView.automaticDimension
+        UserCardScroll.estimatedRowHeight = 200
+        UserCardScroll.backgroundColor = .white
+        UserCardScroll.separatorStyle = .none
+    }
+}
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if temporaryUsers.count == 0{
+            return users.count
+        }else{
+            return temporaryUsers.count
+        }
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserCardCell", for: indexPath) as? UserCardTableViewCell else {
+            return UITableViewCell()
+        }
+        if (temporaryUsers.count == 0 ){
+            let user = users[indexPath.row]
+            cell.configure(user: user, birthday: birthdaySort)
+        }else{
+            cell.setsample()
+        }
+        return cell
+    }
+}
