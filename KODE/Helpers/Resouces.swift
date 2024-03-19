@@ -8,26 +8,21 @@
 import UIKit
 enum Resouces{
     enum Colors{
-        enum navbar{
-            static var SearchBackgroundColor = UIColor(hexString: "#F7F7F8")
-            static var SearchItemColor = UIColor(hexString: "#C3C3C6")
-            static var SelectColor = UIColor(hexString: "#050510")
-            static var grayColor = UIColor(hexString: "#97979B")
-        }
-        static var active = UIColor(hexString: "#E6361D")
-        static var backgroundUser = UIColor(hexString: "#5F30F9")
-        static var inactive = UIColor(hexString: "#FFFFFF")
-        static var backgroundTabBar = UIColor(hexString: "#E6361D")
-        static var separator = UIColor(hexString: "#E8ECEF")
+        static var Black1 = UIColor(hexString: "#050510")
+        static var Gray1 = UIColor(hexString: "#C3C3C6")
+        static var Gray2 = UIColor(hexString: "#97979B")
+        static var Gray3 = UIColor(hexString: "#F7F7F8")
+        static var Gray4 = UIColor(hexString: "#55555C")
+        static var Purple1 = UIColor(hexString: "#6534FF")
     }
     enum Strings {
         static var category = ["Все","Android","iOS", "Designers", "management", "QA", "back_office", "Frontend", "HR", "PR","Backend","support","analytics"]
     }
     enum Images {
         enum TabBar {
-            static var SearchIcon = UIImage(named: "SearchIcon")
-            static var ListIcon = UIImage(named: "ListIcon")
-            static var close = UIImage(named: "X")
+            static var Search = UIImage(named: "Search")
+            static var List = UIImage(named: "List")
+            static var Clear = UIImage(named: "Clear")
                     }
         enum Common {
             static var Selected = UIImage(named: "Selected")
