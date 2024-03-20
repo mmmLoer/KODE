@@ -49,7 +49,7 @@ extension UserCardView{
         backgroundColor = .white
         UserImage.image = Resouces.Images.Common.UserImage
         UserImage.layer.masksToBounds = true
-        UserImage.backgroundColor = .white
+        UserImage.backgroundColor = Resouces.Colors.Purple1
         UserImage.layer.cornerRadius = 36
         
         UserName.font = Resouces.Fonts.InterMedium(with: 16)

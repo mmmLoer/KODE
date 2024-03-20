@@ -7,8 +7,13 @@
 
 import UIKit
 
-class ViewController: BaseController, UITableViewDelegate {
+class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate {
+    func swapCategory(Category: Int) {
+        
+    }
+    
     private let UserCardScroll = UITableView()
+    private var NavBar = NavBarView()
     private var temporaryUsers = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     private var birthdaySort = false
     private var users = [Item]()
@@ -32,15 +37,21 @@ class ViewController: BaseController, UITableViewDelegate {
 extension ViewController{
     override func addViews() {
         UserCardScroll.delegate = self
+        view.addSubview(NavBar)
         view.addSubview(UserCardScroll)
     }
     override func layoutViews() {
         NSLayoutConstraint.activate([
-        UserCardScroll.topAnchor.constraint(equalTo: view.topAnchor),
+            
+        NavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+        NavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+        NavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        UserCardScroll.topAnchor.constraint(equalTo: NavBar.bottomAnchor),
         UserCardScroll.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
         UserCardScroll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
         UserCardScroll.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        NavBar.translatesAutoresizingMaskIntoConstraints = false
         UserCardScroll.translatesAutoresizingMaskIntoConstraints = false
     }
     override func configure() {
