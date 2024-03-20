@@ -1,7 +1,8 @@
 import UIKit
 
-final class NavBarView: BaseView{
+final class NavBarView: BaseView, SearchDelegate{
     weak var delegate: NavBarViewDelegate?
+    var Searchlabel = SearchView()
     private var Separator = UIView()
     private var selectedIndex: IndexPath? = IndexPath(item: 0, section: 0)
     private let horizontalCollectionView: UICollectionView = {
@@ -13,11 +14,17 @@ final class NavBarView: BaseView{
 extension NavBarView{
     override func addViews() {
         addSubview(horizontalCollectionView)
+        Searchlabel.delegate = self
+        addSubview(Searchlabel)
         addSubview(Separator)
     }
     override func layoutViews() {
         NSLayoutConstraint.activate([
-            horizontalCollectionView.topAnchor.constraint(equalTo: topAnchor),
+            Searchlabel.topAnchor.constraint(equalTo: topAnchor, constant: 6),
+            Searchlabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            Searchlabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            Searchlabel.heightAnchor.constraint(equalToConstant: 40),
+            horizontalCollectionView.topAnchor.constraint(equalTo: Searchlabel.bottomAnchor),
             horizontalCollectionView.heightAnchor.constraint(equalToConstant: 36),
             horizontalCollectionView.bottomAnchor.constraint(equalTo: Separator.topAnchor),
             horizontalCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -28,6 +35,7 @@ extension NavBarView{
             Separator.trailingAnchor.constraint(equalTo: trailingAnchor),
             
         ])
+        Searchlabel.translatesAutoresizingMaskIntoConstraints = false
         horizontalCollectionView.translatesAutoresizingMaskIntoConstraints = false
         Separator.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -39,6 +47,12 @@ extension NavBarView{
         horizontalCollectionView.delegate = self
         horizontalCollectionView.dataSource = self
         horizontalCollectionView.selectItem(at: selectedIndex, animated: false, scrollPosition: .left)
+    }
+    func sortTapped() {
+        delegate?.sortTapped()
+    }
+    func search(Search SearchValue: String) {
+        delegate?.getSearchValue(searchValue: SearchValue)
     }
 }
 
@@ -91,5 +105,7 @@ extension NavBarView: UICollectionViewDelegate, UICollectionViewDataSource {
 }
 protocol NavBarViewDelegate: AnyObject {
     func swapCategory( Category: Int)
+    func getSearchValue(searchValue SearchValue:String)
+    func sortTapped()
 }
 

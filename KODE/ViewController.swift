@@ -8,6 +8,14 @@
 import UIKit
 
 class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate {
+    func getSearchValue(searchValue SearchValue: String) {
+        
+    }
+    
+    func sortTapped() {
+        
+    }
+    
     func swapCategory(Category: Int) {
         
     }
