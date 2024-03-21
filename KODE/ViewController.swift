@@ -19,6 +19,7 @@ class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate, So
     private var birthdaySort = false
     private var users = [Item]()
     private var usersData = [Item]()
+    private let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
         UserCardScroll.reloadData()
@@ -63,6 +64,8 @@ extension ViewController{
     }
     override func configure() {
         view.backgroundColor = .white
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        UserCardScroll.refreshControl = refreshControl
         UserCardScroll.register(UserCardTableViewCell.self, forCellReuseIdentifier: "UserCardCell")
         UserCardScroll.dataSource = self
         UserCardScroll.rowHeight = UITableView.automaticDimension
@@ -70,8 +73,24 @@ extension ViewController{
         UserCardScroll.backgroundColor = .white
         UserCardScroll.separatorStyle = .none
     }
+    @objc func refresh(_ sender: UIRefreshControl) {
+        temporaryUsers = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        UserCardScroll.reloadData()
+        APIManager.shared.getUsers { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let usersData):
+                    self.usersData = usersData.items
+                    self.temporaryUsers=[]
+                    self.sorted()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        refreshControl.endRefreshing()
+    }
     func getSearchValue(searchValue SearchValue: String) {
-        print(SearchValue)
         self.SearchValue = SearchValue
         sorted()
     }
@@ -98,13 +117,15 @@ extension ViewController{
             sorted()
     }
     func sorted(){
-        filteredAndSortedItems = filterAndSort(users: usersData, preferredDepartment: preferredDepartment, searchValue: SearchValue, alfavitSort: alfavitSort, birthdaySort: birthdaySort)
-        self.addUsers(users: filteredAndSortedItems)
-        if (filteredAndSortedItems.count==0){
-            NotFinded.isHidden = false
-            view.bringSubviewToFront(NotFinded)
-        }else{
-            NotFinded.isHidden = true
+        if(temporaryUsers.count == 0){
+            filteredAndSortedItems = filterAndSort(users: usersData, preferredDepartment: preferredDepartment, searchValue: SearchValue, alfavitSort: alfavitSort, birthdaySort: birthdaySort)
+            self.addUsers(users: filteredAndSortedItems)
+            if (filteredAndSortedItems.count==0){
+                NotFinded.isHidden = false
+                view.bringSubviewToFront(NotFinded)
+            }else{
+                NotFinded.isHidden = true
+            }
         }
     }
     func addUsers(users: [Item]){
@@ -147,14 +168,16 @@ extension ViewController:UIViewControllerTransitioningDelegate{
         FilterController.setSort(alfavitSort: self.alfavitSort)
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedUser = users[indexPath.row]
-        let targetViewController = TargetViewController()
-        let outputDateString = DateFormat(Date: selectedUser.birthday)
-        let age = GetAge(date: selectedUser.birthday)
-        targetViewController.setName(firstName: selectedUser.firstName, secondName: selectedUser.lastName, userTag: selectedUser.userTag, department: selectedUser.department, Date: outputDateString, Phone: selectedUser.phone, Age: age, avatarURL: selectedUser.avatarURL)
-        targetViewController.modalPresentationStyle = .fullScreen
-        targetViewController.transitioningDelegate = self
-        present(targetViewController, animated: true, completion: nil)
+        if(temporaryUsers.count == 0){
+            let selectedUser = users[indexPath.row]
+            let targetViewController = TargetViewController()
+            let outputDateString = DateFormat(Date: selectedUser.birthday)
+            let age = GetAge(date: selectedUser.birthday)
+            targetViewController.setName(firstName: selectedUser.firstName, secondName: selectedUser.lastName, userTag: selectedUser.userTag, department: selectedUser.department, Date: outputDateString, Phone: selectedUser.phone, Age: age, avatarURL: selectedUser.avatarURL)
+            targetViewController.modalPresentationStyle = .fullScreen
+            targetViewController.transitioningDelegate = self
+            present(targetViewController, animated: true, completion: nil)
+        }
     }
 }
 
