@@ -28,7 +28,7 @@ enum Resouces{
             static var Selected = UIImage(named: "Selected")
             static var UnSelected = UIImage(named: "UnSelected")
             static var Close = UIImage(named: "Close")
-            static var glass = UIImage(named: "glass")
+            static var Glass = UIImage(named: "Glass")
             static var UserImage = UIImage(named: "UserImage")
             static var Phone = UIImage(named: "Phone")
             static var Star = UIImage(named: "Star")

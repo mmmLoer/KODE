@@ -8,20 +8,7 @@
 import UIKit
 
 class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate, SortViewControllerDelegate, UISheetPresentationControllerDelegate {
-    func button1Tapped() {
-        NavBar.Searchlabel.filterCollor(alfavitSort: true)
-        alfavitSort = true
-        birthdaySort = false
-        sorted()
-    }
-    
-    func button2Tapped() {
-        NavBar.Searchlabel.filterCollor(alfavitSort: false)
-        alfavitSort = false
-        birthdaySort = true
-        sorted()
-    }
-    
+    private let NotFinded = UserNotFindedView()
     private var preferredDepartment = "all"
     private var SearchValue = ""
     private var filteredAndSortedItems = [Item]()
@@ -53,12 +40,15 @@ extension ViewController{
     override func addViews() {
         UserCardScroll.delegate = self
         NavBar.delegate = self
+        view.addSubview(NotFinded)
         view.addSubview(NavBar)
         view.addSubview(UserCardScroll)
     }
     override func layoutViews() {
         NSLayoutConstraint.activate([
-            
+        NotFinded.topAnchor.constraint(equalTo: NavBar.bottomAnchor, constant: 80),
+        NotFinded.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+        NotFinded.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
         NavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
         NavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
         NavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -67,6 +57,7 @@ extension ViewController{
         UserCardScroll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
         UserCardScroll.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        NotFinded.translatesAutoresizingMaskIntoConstraints = false
         NavBar.translatesAutoresizingMaskIntoConstraints = false
         UserCardScroll.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -84,7 +75,19 @@ extension ViewController{
         self.SearchValue = SearchValue
         sorted()
     }
+    func button1Tapped() {
+        NavBar.Searchlabel.filterCollor(alfavitSort: true)
+        alfavitSort = true
+        birthdaySort = false
+        sorted()
+    }
     
+    func button2Tapped() {
+        NavBar.Searchlabel.filterCollor(alfavitSort: false)
+        alfavitSort = false
+        birthdaySort = true
+        sorted()
+    }
     func swapCategory(Category: Int) {
         let index = Category - 1
             if index >= 0 && index < Department.allCases.count - 1 {
@@ -97,6 +100,12 @@ extension ViewController{
     func sorted(){
         filteredAndSortedItems = filterAndSort(users: usersData, preferredDepartment: preferredDepartment, searchValue: SearchValue, alfavitSort: alfavitSort, birthdaySort: birthdaySort)
         self.addUsers(users: filteredAndSortedItems)
+        if (filteredAndSortedItems.count==0){
+            NotFinded.isHidden = false
+            view.bringSubviewToFront(NotFinded)
+        }else{
+            NotFinded.isHidden = true
+        }
     }
     func addUsers(users: [Item]){
         self.users = users
