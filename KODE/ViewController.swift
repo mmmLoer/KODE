@@ -8,23 +8,16 @@
 import UIKit
 
 class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate {
-    func getSearchValue(searchValue SearchValue: String) {
-        
-    }
-    
-    func sortTapped() {
-        
-    }
-    
-    func swapCategory(Category: Int) {
-        
-    }
-    
+    private var preferredDepartment = "all"
+    private var SearchValue = ""
+    private var filteredAndSortedItems = [Item]()
     private let UserCardScroll = UITableView()
     private var NavBar = NavBarView()
     private var temporaryUsers = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    private var alfavitSort = true
     private var birthdaySort = false
     private var users = [Item]()
+    private var usersData = [Item]()
     override func viewDidLoad() {
         super.viewDidLoad()
         UserCardScroll.reloadData()
@@ -32,9 +25,9 @@ class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let usersData):
+                    self.usersData = usersData.items
                     self.temporaryUsers=[]
-                    self.users = usersData.items
-                    self.UserCardScroll.reloadData()
+                    self.sorted()
                 case .failure(let error):
                     print(error)
                 }
@@ -45,6 +38,7 @@ class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate {
 extension ViewController{
     override func addViews() {
         UserCardScroll.delegate = self
+        NavBar.delegate = self
         view.addSubview(NavBar)
         view.addSubview(UserCardScroll)
     }
@@ -70,6 +64,33 @@ extension ViewController{
         UserCardScroll.estimatedRowHeight = 200
         UserCardScroll.backgroundColor = .white
         UserCardScroll.separatorStyle = .none
+    }
+    func getSearchValue(searchValue SearchValue: String) {
+        print(SearchValue)
+        self.SearchValue = SearchValue
+        sorted()
+    }
+    
+    func sortTapped() {
+        
+    }
+    
+    func swapCategory(Category: Int) {
+        let index = Category - 1
+            if index >= 0 && index < Department.allCases.count - 1 {
+                preferredDepartment = Department.allCases[index].rawValue
+            } else {
+                preferredDepartment = Department.all.rawValue
+            }
+            sorted()
+    }
+    func sorted(){
+        filteredAndSortedItems = filterAndSort(users: usersData, preferredDepartment: preferredDepartment, searchValue: SearchValue, alfavitSort: alfavitSort, birthdaySort: birthdaySort)
+        self.addUsers(users: filteredAndSortedItems)
+    }
+    func addUsers(users: [Item]){
+        self.users = users
+        UserCardScroll.reloadData()
     }
 }
 extension ViewController: UITableViewDataSource {

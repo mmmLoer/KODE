@@ -27,7 +27,7 @@ extension NavBarView{
             horizontalCollectionView.topAnchor.constraint(equalTo: Searchlabel.bottomAnchor),
             horizontalCollectionView.heightAnchor.constraint(equalToConstant: 36),
             horizontalCollectionView.bottomAnchor.constraint(equalTo: Separator.topAnchor),
-            horizontalCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            horizontalCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             horizontalCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             Separator.bottomAnchor.constraint(equalTo: bottomAnchor),
             Separator.heightAnchor.constraint(equalToConstant: 0.33),

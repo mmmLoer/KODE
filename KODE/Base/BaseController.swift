@@ -7,11 +7,6 @@
 
 import UIKit
 
-enum NavBarPosition {
-    case left
-    case right
-}
-
 class BaseController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
