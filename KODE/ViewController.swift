@@ -137,5 +137,15 @@ extension ViewController:UIViewControllerTransitioningDelegate{
         present(FilterController, animated: true)
         FilterController.setSort(alfavitSort: self.alfavitSort)
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedUser = users[indexPath.row]
+        let targetViewController = TargetViewController()
+        let outputDateString = DateFormat(Date: selectedUser.birthday)
+        let age = GetAge(date: selectedUser.birthday)
+        targetViewController.setName(firstName: selectedUser.firstName, secondName: selectedUser.lastName, userTag: selectedUser.userTag, department: selectedUser.department, Date: outputDateString, Phone: selectedUser.phone, Age: age, avatarURL: selectedUser.avatarURL)
+        targetViewController.modalPresentationStyle = .fullScreen
+        targetViewController.transitioningDelegate = self
+        present(targetViewController, animated: true, completion: nil)
+    }
 }
 
