@@ -27,7 +27,7 @@ enum Resouces{
         enum Common {
             static var Selected = UIImage(named: "Selected")
             static var UnSelected = UIImage(named: "UnSelected")
-            static var close = UIImage(named: "close")
+            static var Close = UIImage(named: "Close")
             static var glass = UIImage(named: "glass")
             static var UserImage = UIImage(named: "UserImage")
             static var Phone = UIImage(named: "Phone")

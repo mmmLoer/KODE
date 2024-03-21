@@ -7,7 +7,21 @@
 
 import UIKit
 
-class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate {
+class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate, SortViewControllerDelegate, UISheetPresentationControllerDelegate {
+    func button1Tapped() {
+        NavBar.Searchlabel.filterCollor(alfavitSort: true)
+        alfavitSort = true
+        birthdaySort = false
+        sorted()
+    }
+    
+    func button2Tapped() {
+        NavBar.Searchlabel.filterCollor(alfavitSort: false)
+        alfavitSort = false
+        birthdaySort = true
+        sorted()
+    }
+    
     private var preferredDepartment = "all"
     private var SearchValue = ""
     private var filteredAndSortedItems = [Item]()
@@ -71,10 +85,6 @@ extension ViewController{
         sorted()
     }
     
-    func sortTapped() {
-        
-    }
-    
     func swapCategory(Category: Int) {
         let index = Category - 1
             if index >= 0 && index < Department.allCases.count - 1 {
@@ -114,3 +124,18 @@ extension ViewController: UITableViewDataSource {
         return cell
     }
 }
+extension ViewController:UIViewControllerTransitioningDelegate{
+    func sortTapped() {
+        let FilterController = FilterViewController()
+        FilterController.delegate = self
+        if let sheet = FilterController.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersGrabberVisible = true
+            sheet.delegate = self
+        }
+        FilterController.transitioningDelegate = self
+        present(FilterController, animated: true)
+        FilterController.setSort(alfavitSort: self.alfavitSort)
+    }
+}
+
