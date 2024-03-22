@@ -17,7 +17,7 @@ enum Resouces{
         static var Red1 = UIColor(hexString: "#F44336")
     }
     enum Strings {
-        static var category = ["Все","Android","iOS", "Designers", "management", "QA", "back_office", "Frontend", "HR", "PR","Backend","support","analytics"]
+        static var category = ["Все","Android","iOS", "Designers", "Management", "QA", "Back Office", "Frontend", "HR", "PR","Backend","Support","Analytics"]
     }
     enum Images {
         enum TabBar {
@@ -34,7 +34,6 @@ enum Resouces{
             static var Phone = UIImage(named: "Phone")
             static var Star = UIImage(named: "Star")
         }
-        
     }
     enum Fonts {
         static func InterMedium(with size: CGFloat) -> UIFont {

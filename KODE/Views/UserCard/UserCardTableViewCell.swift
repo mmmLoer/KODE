@@ -45,7 +45,7 @@ class UserCardTableViewCell: UITableViewCell {
                 print("Не удалось загрузить изображение.")
             }
         }
-        userCardView.setData(firstName: user.firstName, secondName: user.lastName, userTag: user.userTag, userDepartment: user.department, userBirthday: user.birthday)
+        userCardView.setData(firstName: user.firstName, secondName: user.lastName, userTag: user.userTag.lowercased(), userDepartment: transformString(user.department), userBirthday: DateFormatSmall(Date: user.birthday))
     }
 }
 

@@ -1,4 +1,5 @@
 import Foundation
+// MARK: - Date formate
 func correctWordForYear(_ number: Int) -> String {
     let cases = [2, 0, 1, 1, 1, 2]
     let titles = ["год", "года", "лет"]
@@ -17,29 +18,18 @@ func DateFormat( Date: String) -> String{
     let outputDateString = dateFormatter.string(from: date)
     return outputDateString
 }
-func GetMounth( Date: String) -> Int{
+func DateFormatSmall( Date: String) -> String{
     let inputDateFormat = "yyyy-MM-dd"
-    let outputDateFormat = "MM"
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = inputDateFormat
-    guard let date = dateFormatter.date(from: Date) else {
-        fatalError("Неверный формат входной строки.")
-    }
-    dateFormatter.dateFormat = outputDateFormat
-    let outputDateString = dateFormatter.string(from: date)
-    return Int(outputDateString)!
-}
-func DateFormatMon( Date: String) -> String{
-    let inputDateFormat = "yyyy-MM-dd"
-    let outputDateFormat = "dd MMM"
     let dateFormatter = DateFormatter()
     dateFormatter.locale = Locale(identifier: "ru_RU")
     dateFormatter.dateFormat = inputDateFormat
     guard let date = dateFormatter.date(from: Date) else {
         fatalError("Неверный формат входной строки.")
     }
-    dateFormatter.dateFormat = outputDateFormat
-    let outputDateString = dateFormatter.string(from: date)
+    dateFormatter.dateFormat = "d"
+    var outputDateString = dateFormatter.string(from: date)
+    dateFormatter.dateFormat = "MMM"
+    outputDateString = "\(outputDateString) \(dateFormatter.string(from: date).prefix(3))"
     return outputDateString
 }
 func GetAge(date: String)-> String{
@@ -53,12 +43,7 @@ func GetAge(date: String)-> String{
     guard let dateOfBirth = dateFormatter.date(from: date) else {
         fatalError("Неверный формат входной строки.")
     }
-
-   
     dateFormatter.dateFormat = outputDateFormat
-    
-
-    // Вычисление возраста
     let calendar = Calendar.current
     let ageComponents = calendar.dateComponents([.year], from: dateOfBirth, to: Date())
     guard let age = ageComponents.year else {
@@ -66,4 +51,21 @@ func GetAge(date: String)-> String{
     }
     let ageWord = correctWordForYear(age)
     return "\(age) \(ageWord)"
+}
+// MARK: - Data formate
+func transformString(_ string: String) -> String {
+    switch string {
+    case "ios":
+        return "iOS"
+    case "qa":
+        return "QA"
+    case "hr":
+        return "HR"
+    case "pr":
+        return "PR"
+    case "back_office":
+        return "Back Office"
+    default:
+        return string.prefix(1).uppercased() + string.dropFirst()
+    }
 }

@@ -88,10 +88,10 @@ extension SearchView{
         searchIcon.image = Resouces.Images.TabBar.Search?.withRenderingMode(.alwaysTemplate)
         searchIcon.tintColor = Resouces.Colors.Gray1
         
-        let tapX = UITapGestureRecognizer(target: self, action: #selector(textX))
+        let clear = UITapGestureRecognizer(target: self, action: #selector(textClear))
         Clear.image = Resouces.Images.TabBar.Clear
         Clear.tintColor = Resouces.Colors.Gray1
-        Clear.addGestureRecognizer(tapX)
+        Clear.addGestureRecognizer(clear)
         Clear.isUserInteractionEnabled = true
         
         ListIcon.image = Resouces.Images.TabBar.List?.withRenderingMode(.alwaysTemplate)
@@ -99,7 +99,7 @@ extension SearchView{
         ListIcon.isUserInteractionEnabled = true // Включаем взаимодействие с пользователем
         let tapList = UITapGestureRecognizer(target: self, action: #selector(listIconTapped))
         ListIcon.addGestureRecognizer(tapList)
-        textField.tintColor = .red
+        textField.tintColor = Resouces.Colors.Purple1
         textField.isUserInteractionEnabled = true // Включаем взаимодействие с пользователем
         textField.addGestureRecognizer(tapGesture)
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
@@ -146,7 +146,7 @@ extension SearchView{
         }
         delegate?.search(Search: textField.text!)
     }
-    @objc private func textX() {
+    @objc private func textClear() {
         textField.text = ""
         delegate?.search(Search: textField.text!)}
     
