@@ -14,6 +14,7 @@ enum Resouces{
         static var Gray3 = UIColor(hexString: "#F7F7F8")
         static var Gray4 = UIColor(hexString: "#55555C")
         static var Purple1 = UIColor(hexString: "#6534FF")
+        static var Red1 = UIColor(hexString: "#F44336")
     }
     enum Strings {
         static var category = ["Все","Android","iOS", "Designers", "management", "QA", "back_office", "Frontend", "HR", "PR","Backend","support","analytics"]

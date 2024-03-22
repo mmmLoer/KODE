@@ -11,6 +11,8 @@ class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate, So
     private let NotFinded = UserNotFindedView()
     private var preferredDepartment = "all"
     private var SearchValue = ""
+    private var errorViewAboutSuperview: NSLayoutConstraint?
+    private var errorViewToSuperview: NSLayoutConstraint?
     private var filteredAndSortedItems = [Item]()
     private let UserCardScroll = UITableView()
     private var NavBar = NavBarView()
@@ -18,10 +20,12 @@ class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate, So
     private var alfavitSort = true
     private var birthdaySort = false
     private var users = [Item]()
+    private var errorView = ErrorView()
     private var usersData = [Item]()
     private let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         UserCardScroll.reloadData()
         APIManager.shared.getUsers { result in
             DispatchQueue.main.async {
@@ -30,9 +34,19 @@ class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate, So
                     self.usersData = usersData.items
                     self.temporaryUsers=[]
                     self.sorted()
-                case .failure(let error):
-                    print(error)
-                }
+                    
+                    
+                case .failure(let error as NSError):
+                    if (error.code == -1001){
+                        self.errorView.label.text = "Не могу обновить данные \nПроверь соединение с интернетом."
+                        
+                    }else if (error.code == 500){
+                        self.errorView.label.text = "Проблема на стороне сервера \nМы уже занимаемся этой проблемой."
+                    }else{
+                        self.errorView.label.text = "В приложении произошла ошибка \nСкоро все починим."
+                    }
+                    self.view.bringSubviewToFront(self.errorView)
+                    self.animateViewDown()                }
             }
         }
     }
@@ -41,6 +55,7 @@ extension ViewController{
     override func addViews() {
         UserCardScroll.delegate = self
         NavBar.delegate = self
+        view.addSubview(errorView)
         view.addSubview(NotFinded)
         view.addSubview(NavBar)
         view.addSubview(UserCardScroll)
@@ -56,24 +71,37 @@ extension ViewController{
         UserCardScroll.topAnchor.constraint(equalTo: NavBar.bottomAnchor),
         UserCardScroll.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
         UserCardScroll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-        UserCardScroll.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        UserCardScroll.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        
+        
+        errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+        errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        errorView.topAnchor.constraint(equalTo: view.topAnchor)
         ])
+        errorViewAboutSuperview = errorView.bottomAnchor.constraint(equalTo: view.topAnchor)
+        errorViewToSuperview = errorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40)
+        errorViewAboutSuperview?.isActive = true
+        errorViewToSuperview?.isActive = false
+        errorView.translatesAutoresizingMaskIntoConstraints = false
         NotFinded.translatesAutoresizingMaskIntoConstraints = false
         NavBar.translatesAutoresizingMaskIntoConstraints = false
         UserCardScroll.translatesAutoresizingMaskIntoConstraints = false
     }
     override func configure() {
         view.backgroundColor = .white
+                
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         UserCardScroll.refreshControl = refreshControl
         UserCardScroll.register(UserCardTableViewCell.self, forCellReuseIdentifier: "UserCardCell")
         UserCardScroll.dataSource = self
+        
         UserCardScroll.rowHeight = UITableView.automaticDimension
         UserCardScroll.estimatedRowHeight = 200
         UserCardScroll.backgroundColor = .white
         UserCardScroll.separatorStyle = .none
     }
     @objc func refresh(_ sender: UIRefreshControl) {
+        self.animateViewUp()
         temporaryUsers = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         UserCardScroll.reloadData()
         APIManager.shared.getUsers { result in
@@ -83,12 +111,38 @@ extension ViewController{
                     self.usersData = usersData.items
                     self.temporaryUsers=[]
                     self.sorted()
-                case .failure(let error):
-                    print(error)
-                }
+                   
+                    
+                case .failure(let error as NSError):
+                    if (error.code == -1001){
+                        self.errorView.label.text = "Не могу обновить данные \nПроверь соединение с интернетом."
+                        
+                    }else if (error.code == 500){
+                        self.errorView.label.text = "Проблема на стороне сервера \nМы уже занимаемся этой проблемой."
+                    } else{
+                        self.errorView.label.text = "В приложении произошла ошибка \nСкоро все починим."
+                    }
+                    print(error.code)
+                    self.view.bringSubviewToFront(self.errorView)
+                    self.animateViewDown()                }
             }
         }
         refreshControl.endRefreshing()
+    }
+    func animateViewDown() {
+        self.errorViewAboutSuperview?.isActive = false
+        self.errorViewToSuperview?.isActive = true
+        UIView.animate(withDuration: 1, animations: {
+            self.view.layoutIfNeeded()
+            })
+    }
+    func animateViewUp(){
+        self.errorViewAboutSuperview?.isActive = true
+        self.errorViewToSuperview?.isActive = false
+       
+        UIView.animate(withDuration: 1, animations: {
+            self.view.layoutIfNeeded()
+            })
     }
     func getSearchValue(searchValue SearchValue: String) {
         self.SearchValue = SearchValue

@@ -26,6 +26,7 @@
 		521A9C2C2BAC993C0072C867 /* FilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521A9C2B2BAC993C0072C867 /* FilterController.swift */; };
 		521A9C2E2BACA94F0072C867 /* UserCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521A9C2D2BACA94F0072C867 /* UserCardController.swift */; };
 		521A9C302BACC83D0072C867 /* UserNotFindedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521A9C2F2BACC83D0072C867 /* UserNotFindedView.swift */; };
+		521A9C322BACDD020072C867 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521A9C312BACDD010072C867 /* ErrorView.swift */; };
 		52DB39AA2BA79CD000DF1BDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DB39A92BA79CD000DF1BDD /* AppDelegate.swift */; };
 		52DB39AC2BA79CD000DF1BDD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DB39AB2BA79CD000DF1BDD /* SceneDelegate.swift */; };
 		52DB39AE2BA79CD000DF1BDD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DB39AD2BA79CD000DF1BDD /* ViewController.swift */; };
@@ -55,6 +56,7 @@
 		521A9C2B2BAC993C0072C867 /* FilterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterController.swift; sourceTree = "<group>"; };
 		521A9C2D2BACA94F0072C867 /* UserCardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardController.swift; sourceTree = "<group>"; };
 		521A9C2F2BACC83D0072C867 /* UserNotFindedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotFindedView.swift; sourceTree = "<group>"; };
+		521A9C312BACDD010072C867 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		52DB39A62BA79CD000DF1BDD /* KODE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KODE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52DB39A92BA79CD000DF1BDD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52DB39AB2BA79CD000DF1BDD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				521A9C042BAA012C0072C867 /* Helpers */,
 				52DB39C22BA7A79300DF1BDD /* Base */,
 				52DB39AD2BA79CD000DF1BDD /* ViewController.swift */,
+				521A9C312BACDD010072C867 /* ErrorView.swift */,
 				521A9C2D2BACA94F0072C867 /* UserCardController.swift */,
 				521A9C2F2BACC83D0072C867 /* UserNotFindedView.swift */,
 				521A9C2B2BAC993C0072C867 /* FilterController.swift */,
@@ -269,6 +272,7 @@
 				52DB39AA2BA79CD000DF1BDD /* AppDelegate.swift in Sources */,
 				521A9C1D2BAA50600072C867 /* UserCardTableViewCell.swift in Sources */,
 				521A9C302BACC83D0072C867 /* UserNotFindedView.swift in Sources */,
+				521A9C322BACDD020072C867 /* ErrorView.swift in Sources */,
 				521A9C232BAB0E0F0072C867 /* CategoryCell.swift in Sources */,
 				52DB39C12BA7A78300DF1BDD /* BaseView.swift in Sources */,
 				52DB39BF2BA7A75800DF1BDD /* BaseController.swift in Sources */,

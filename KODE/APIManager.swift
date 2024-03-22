@@ -23,13 +23,13 @@ class APIManager{
                 return
             }
             guard let data = data else {
-                // Ошибка, если нет данных
                 completion(.failure(NSError(domain: "NoData", code: 0, userInfo: nil)))
                 return
             }
             do {
                 let usersData = try JSONDecoder().decode(UsersData.self, from: data)
                 completion(.success(usersData))
+                return
             } catch {
                 completion(.failure(error))
             }
