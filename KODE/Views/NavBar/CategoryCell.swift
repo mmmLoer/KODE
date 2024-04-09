@@ -5,7 +5,7 @@ class CategoryCell: UICollectionViewCell {
     let borderLayer = UIView()
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         contentView.addSubview(label)
         contentView.addSubview(borderLayer)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -23,22 +23,21 @@ class CategoryCell: UICollectionViewCell {
         label.textColor = .black
         label.textAlignment = .center
         }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-   
-    func setFont(with font: UIFont){
+
+    func setFont(with font: UIFont) {
         label.font = font
     }
-    func setBorderColor(color:UIColor){
+    func setBorderColor(color: UIColor) {
         borderLayer.backgroundColor = color
     }
-    func setTextColor(with color: UIColor){
+    func setTextColor(with color: UIColor) {
         label.textColor = color
     }
     func configure(with category: String) {
         label.text = category
     }
 }
-

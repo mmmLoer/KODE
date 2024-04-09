@@ -1,10 +1,10 @@
 import UIKit
-final class UserNotFindedView:BaseView{
+final class UserNotFindedView: BaseView {
     private let icon = UIImageView()
     private let label1 = UILabel()
     private let label2 = UILabel()
 }
-extension UserNotFindedView{
+extension UserNotFindedView {
     override func addViews() {
         addSubview(icon)
         addSubview(label1)
@@ -17,10 +17,10 @@ extension UserNotFindedView{
         NSLayoutConstraint.activate([
             icon.topAnchor.constraint(equalTo: topAnchor),
             icon.centerXAnchor.constraint(equalTo: centerXAnchor),
-            label1.topAnchor.constraint(equalTo: icon.bottomAnchor,constant: 10),
+            label1.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 10),
             label1.centerXAnchor.constraint(equalTo: centerXAnchor),
-            label2.topAnchor.constraint(equalTo: label1.bottomAnchor,constant: 10),
-            label2.centerXAnchor.constraint(equalTo: centerXAnchor),
+            label2.topAnchor.constraint(equalTo: label1.bottomAnchor, constant: 10),
+            label2.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
     override func configure() {

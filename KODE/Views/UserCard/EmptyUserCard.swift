@@ -1,13 +1,12 @@
 import UIKit
 
-final class SampleCardView: BaseView{
+final class SampleCardView: BaseView {
     private let userTagGradientLayer = CAGradientLayer()
     private let UserImage = UIView()
     private let UserName = UIView()
     private let UserTag = UIView()
-    
 }
-extension SampleCardView{
+extension SampleCardView {
     override func addViews() {
         addSubview(UserImage)
         addSubview(UserName)
@@ -28,7 +27,7 @@ extension SampleCardView{
             UserTag.heightAnchor.constraint(equalToConstant: 12),
             UserTag.widthAnchor.constraint(equalToConstant: 80),
             UserTag.leadingAnchor.constraint(equalTo: UserImage.trailingAnchor, constant: 16),
-            UserTag.topAnchor.constraint(equalTo: UserName.bottomAnchor, constant: 6),
+            UserTag.topAnchor.constraint(equalTo: UserName.bottomAnchor, constant: 6)
         ])
     }
     override func configure() {
@@ -56,7 +55,7 @@ extension SampleCardView{
         gradientLayer.frame = UserTag.bounds
         gradientLayer.cornerRadius = UserTag.layer.cornerRadius
         UserTag.layer.insertSublayer(gradientLayer, at: 0)
-        
+
         let userNamegradientLayer = CAGradientLayer()
         userNamegradientLayer.colors = [
             UIColor(hexString: "#F3F3F6").cgColor,
@@ -68,7 +67,7 @@ extension SampleCardView{
         userNamegradientLayer.frame = UserName.bounds
         userNamegradientLayer.cornerRadius = UserName.layer.cornerRadius
         UserName.layer.insertSublayer(userNamegradientLayer, at: 0)
-        
+
         let userImagegradientLayer = CAGradientLayer()
         userImagegradientLayer.colors = [
             UIColor(hexString: "#F3F3F6").cgColor,
@@ -80,6 +79,6 @@ extension SampleCardView{
         userImagegradientLayer.frame = UserImage.bounds
         userImagegradientLayer.cornerRadius = UserImage.layer.cornerRadius
         UserImage.layer.insertSublayer(userImagegradientLayer, at: 0)
-        
+
     }
 }

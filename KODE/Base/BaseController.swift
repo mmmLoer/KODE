@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseController: UIViewController{
+class BaseController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addViews()
@@ -17,9 +17,9 @@ class BaseController: UIViewController{
 }
 
 @objc extension BaseController {
-    func addViews(){}
-    func layoutViews(){}
-    func configure(){
+    func addViews() {}
+    func layoutViews() {}
+    func configure() {
         view.backgroundColor = .white
     }
 }

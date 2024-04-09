@@ -1,8 +1,8 @@
 import UIKit
-final class ErrorView:BaseView{
+final class ErrorView: BaseView {
     let label = UILabel()
 }
-extension ErrorView{
+extension ErrorView {
     override func addViews() {
         addSubview(label)
     }
@@ -11,7 +11,7 @@ extension ErrorView{
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30)
         ])
     }
     override func configure() {

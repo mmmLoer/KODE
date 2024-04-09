@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class FilterViewController: BaseController{
-    weak var delegate:SortViewControllerDelegate?
+final class FilterViewController: BaseController {
+    weak var delegate: SortViewControllerDelegate?
     private let Title = UILabel()
     private let CloseButton = UIButton()
     private let Button1 = UIButton()
@@ -16,8 +16,8 @@ final class FilterViewController: BaseController{
     private let Button2 = UIButton()
     private let label2 = UILabel()
 }
-extension FilterViewController{
-    func setSort(alfavitSort:Bool){
+extension FilterViewController {
+    func setSort(alfavitSort: Bool) {
         self.Button1.setImage(alfavitSort ? Resouces.Images.Common.Selected : Resouces.Images.Common.UnSelected, for: .normal)
         self.Button2.setImage(alfavitSort ? Resouces.Images.Common.UnSelected : Resouces.Images.Common.Selected, for: .normal)
     }
@@ -54,7 +54,7 @@ extension FilterViewController{
             label1.leadingAnchor.constraint(equalTo: Button1.trailingAnchor, constant: 12),
             label2.leadingAnchor.constraint(equalTo: Button2.trailingAnchor, constant: 12),
             label1.centerYAnchor.constraint(equalTo: Button1.centerYAnchor),
-            label2.centerYAnchor.constraint(equalTo:  Button2.centerYAnchor),
+            label2.centerYAnchor.constraint(equalTo: Button2.centerYAnchor)
         ])
     }
     override func configure() {
@@ -74,25 +74,24 @@ extension FilterViewController{
         CloseButton.addTarget(self, action: #selector(CloseController), for: .touchUpInside)
         CloseButton.setImage(Resouces.Images.Common.Close, for: .normal)
     }
-    @objc func button1Tapped(){
+    @objc func button1Tapped() {
         delegate?.button1Tapped()
         Button1.setImage(Resouces.Images.Common.Selected, for: .normal)
         Button2.setImage(Resouces.Images.Common.UnSelected, for: .normal)
         dismiss(animated: true, completion: nil)
     }
-    @objc func button2Tapped(){
+    @objc func button2Tapped() {
         delegate?.button2Tapped()
         Button2.setImage(Resouces.Images.Common.Selected, for: .normal)
         Button1.setImage(Resouces.Images.Common.UnSelected, for: .normal)
         dismiss(animated: true, completion: nil)
     }
-    @objc func CloseController(){
+    @objc func CloseController() {
         dismiss(animated: true, completion: nil)
     }
 }
 
-protocol SortViewControllerDelegate: AnyObject{
+protocol SortViewControllerDelegate: AnyObject {
     func button1Tapped()
     func button2Tapped()
 }
-

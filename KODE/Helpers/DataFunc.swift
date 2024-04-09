@@ -5,7 +5,7 @@ func correctWordForYear(_ number: Int) -> String {
     let titles = ["год", "года", "лет"]
     return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[min(number % 10, 5)]]
 }
-func DateFormat( Date: String) -> String{
+func DateFormat(Date: String) -> String {
     let inputDateFormat = "yyyy-MM-dd"
     let outputDateFormat = "dd MMMM yyyy"
     let dateFormatter = DateFormatter()
@@ -18,7 +18,7 @@ func DateFormat( Date: String) -> String{
     let outputDateString = dateFormatter.string(from: date)
     return outputDateString
 }
-func DateFormatSmall( Date: String) -> String{
+func DateFormatSmall( Date: String) -> String {
     let inputDateFormat = "yyyy-MM-dd"
     let dateFormatter = DateFormatter()
     dateFormatter.locale = Locale(identifier: "ru_RU")
@@ -32,7 +32,7 @@ func DateFormatSmall( Date: String) -> String{
     outputDateString = "\(outputDateString) \(dateFormatter.string(from: date).prefix(3))"
     return outputDateString
 }
-func GetAge(date: String)-> String{
+func GetAge(date: String) -> String {
     let inputDateFormat = "yyyy-MM-dd"
     let outputDateFormat = "dd MMMM yyyy"
 

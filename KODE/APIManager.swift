@@ -7,17 +7,17 @@
 
 import UIKit
 
-class APIManager{
+class APIManager {
     static let shared = APIManager()
-    
+
     let urlString = "https://stoplight.io/mocks/kode-api/trainee-test/331141861/users"
-    
+
     func getUsers(completion: @escaping (Result<UsersData, Error>) -> Void) {
-      
+
         guard let url = URL(string: urlString) else { return }
-        
+
         let request = URLRequest(url: url)
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -36,14 +36,14 @@ class APIManager{
         }
         task.resume()
     }
-    
+
 }
 func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
     guard let url = URL(string: urlString) else {
         completion(nil)
         return
     }
-    let task = URLSession.shared.dataTask(with: url) { data, response, error in
+    let task = URLSession.shared.dataTask(with: url) { data, _, error in
         guard let data = data, error == nil else {
             completion(nil)
             return
@@ -55,4 +55,3 @@ func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void)
     }
     task.resume()
 }
-

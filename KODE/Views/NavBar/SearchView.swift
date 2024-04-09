@@ -1,6 +1,6 @@
 import UIKit
 
-final class SearchView: BaseView{
+final class SearchView: BaseView {
     weak var delegate: SearchDelegate?
     private var searchTrailingConstraintToSuperview: NSLayoutConstraint?
     private var searchTrailingConstraintToCancel: NSLayoutConstraint?
@@ -15,11 +15,11 @@ final class SearchView: BaseView{
     private let searchIcon = UIImageView()
     private let ListIcon = UIImageView()
     private let cancel = UILabel()
-    func filterCollor(alfavitSort:Bool){
+    func filterCollor(alfavitSort: Bool) {
         self.ListIcon.tintColor = alfavitSort ? Resouces.Colors.Gray1 : Resouces.Colors.Purple1
     }
 }
-extension SearchView{
+extension SearchView {
     override func addViews() {
         textField.delegate = self
         addSubview(Search)
@@ -39,7 +39,7 @@ extension SearchView{
             Search.topAnchor.constraint(equalTo: topAnchor),
             Search.bottomAnchor.constraint(equalTo: bottomAnchor),
             Search.leadingAnchor.constraint(equalTo: leadingAnchor),
-            
+
             elementView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             elementView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
             elementView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
@@ -51,7 +51,7 @@ extension SearchView{
             searchIcon.centerYAnchor.constraint(equalTo: elementView.centerYAnchor),
             searchIcon.leadingAnchor.constraint(equalTo: elementView.leadingAnchor),
             textField.leadingAnchor.constraint(equalTo: searchIcon.trailingAnchor),
-            
+
             textField.topAnchor.constraint(equalTo: elementView.topAnchor),
             textField.bottomAnchor.constraint(equalTo: elementView.bottomAnchor),
             textField.widthAnchor.constraint(equalToConstant: 175),
@@ -72,28 +72,28 @@ extension SearchView{
         cancel.translatesAutoresizingMaskIntoConstraints = false
     }
     override func configure() {
-        
+
         let tapClose = UITapGestureRecognizer(target: self, action: #selector(sect))
         Search.backgroundColor = Resouces.Colors.Gray3
         Search.layer.cornerRadius = 20
-        
+
         cancel.addGestureRecognizer(tapClose)
         cancel.text = "Отмена"
         cancel.textColor = .blue
         cancel.isUserInteractionEnabled = true
-        
+
         searchIcon.isUserInteractionEnabled = true // Включаем взаимодействие с пользователем
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(searchIconTapped))
         searchIcon.addGestureRecognizer(tapGesture)
         searchIcon.image = Resouces.Images.TabBar.Search?.withRenderingMode(.alwaysTemplate)
         searchIcon.tintColor = Resouces.Colors.Gray1
-        
+
         let clear = UITapGestureRecognizer(target: self, action: #selector(textClear))
         Clear.image = Resouces.Images.TabBar.Clear
         Clear.tintColor = Resouces.Colors.Gray1
         Clear.addGestureRecognizer(clear)
         Clear.isUserInteractionEnabled = true
-        
+
         ListIcon.image = Resouces.Images.TabBar.List?.withRenderingMode(.alwaysTemplate)
         ListIcon.tintColor = Resouces.Colors.Gray1
         ListIcon.isUserInteractionEnabled = true // Включаем взаимодействие с пользователем
@@ -111,16 +111,15 @@ extension SearchView{
         )
         Clear.isHidden = true
         textField.returnKeyType = .done
-        
-        
+
         textField.backgroundColor = .clear
         textField.borderStyle = .roundedRect
         textField.font = Resouces.Fonts.InterMedium(with: 15)
         }
     @objc private func searchIconTapped() {
-        
+
         ListIcon.isHidden = true
-        
+
         cancelTrailingConstraintAboutSuperview?.isActive = false
         cancelTrailingConstraintToSuperview?.isActive = true
         searchTrailingConstraintToSuperview?.isActive = false
@@ -128,20 +127,20 @@ extension SearchView{
         UIView.animate(withDuration: 0.3) {
                 self.layoutIfNeeded()
             }
-        
+
         searchIcon.tintColor = Resouces.Colors.Black1
         textField.becomeFirstResponder()
         }
     @objc private func listIconTapped() {
         delegate?.sortTapped()
         }
-   
+
     @objc private func textFieldDidChange(_ textField: UITextField) {
-        if (textField.text != ""){
+        if textField.text != ""{
             Clear.isHidden = false
             xTrailing?.isActive = true
-            
-        }else{
+
+        } else {
             Clear.isHidden = true
         }
         delegate?.search(Search: textField.text!)
@@ -149,9 +148,9 @@ extension SearchView{
     @objc private func textClear() {
         textField.text = ""
         delegate?.search(Search: textField.text!)}
-    
-    @objc private func sect(){
-        
+
+    @objc private func sect() {
+
         xTrailing?.isActive = false
         Clear.isHidden = true
         searchIcon.tintColor = Resouces.Colors.Gray1
@@ -164,7 +163,7 @@ extension SearchView{
             }, completion: { _ in
                 self.ListIcon.isHidden = false
             })
-        
+
         textField.resignFirstResponder()
     }
 }

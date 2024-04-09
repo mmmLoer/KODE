@@ -1,5 +1,5 @@
 import Foundation
-func filterAndSort(users: [Item], preferredDepartment: String, searchValue:String, alfavitSort: Bool, birthdaySort: Bool) -> [Item] {
+func filterAndSort(users: [Item], preferredDepartment: String, searchValue: String, alfavitSort: Bool, birthdaySort: Bool) -> [Item] {
     var filteredAndSortedItems = users
 
     if preferredDepartment != "all" {
@@ -29,7 +29,7 @@ func filterAndSort(users: [Item], preferredDepartment: String, searchValue:Strin
         filteredAndSortedItems = filteredAndSortedItems.sorted { item1, item2 in
             let item1BirthdayThisYear = currentYearFormatter.date(from: "\(currentYear)-\(item1.birthday.dropFirst(5))")!
             let item2BirthdayThisYear = currentYearFormatter.date(from: "\(currentYear)-\(item2.birthday.dropFirst(5))")!
-            
+
             let item1NextBirthday = item1BirthdayThisYear < today ? Calendar.current.date(byAdding: .year, value: 1, to: item1BirthdayThisYear)! : item1BirthdayThisYear
             let item2NextBirthday = item2BirthdayThisYear < today ? Calendar.current.date(byAdding: .year, value: 1, to: item2BirthdayThisYear)! : item2BirthdayThisYear
 
@@ -39,5 +39,3 @@ func filterAndSort(users: [Item], preferredDepartment: String, searchValue:Strin
 
     return filteredAndSortedItems
 }
-
-

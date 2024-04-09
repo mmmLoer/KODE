@@ -7,7 +7,7 @@
 
 import UIKit
 // MARK: - Initial Setup
-class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate, SortViewControllerDelegate, UISheetPresentationControllerDelegate {
+class ViewController: BaseController, UITableViewDelegate, NavBarViewDelegate, SortViewControllerDelegate, UISheetPresentationControllerDelegate {
     private let NotFinded = UserNotFindedView()
     private var preferredDepartment = "all"
     private var SearchValue = ""
@@ -16,7 +16,7 @@ class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate, So
     private var filteredAndSortedItems = [Item]()
     private let UserCardScroll = UITableView()
     private var NavBar = NavBarView()
-    private var temporaryUsers = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    private var temporaryUsers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     private var alfavitSort = true
     private var birthdaySort = false
     private var users = [Item]()
@@ -29,7 +29,7 @@ class ViewController: BaseController, UITableViewDelegate,NavBarViewDelegate, So
         APIGet()
     }
 }
-extension ViewController{
+extension ViewController {
     override func addViews() {
         UserCardScroll.delegate = self
         NavBar.delegate = self
@@ -50,8 +50,7 @@ extension ViewController{
         UserCardScroll.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
         UserCardScroll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
         UserCardScroll.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        
-        
+
         errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
         errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         errorView.topAnchor.constraint(equalTo: view.topAnchor)
@@ -67,7 +66,7 @@ extension ViewController{
     }
     override func configure() {
         view.backgroundColor = .white
-                
+
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         UserCardScroll.refreshControl = refreshControl
         UserCardScroll.register(UserCardTableViewCell.self, forCellReuseIdentifier: "UserCardCell")
@@ -79,12 +78,12 @@ extension ViewController{
     }
 }
 // MARK: - Sorted Methods
-extension ViewController{
+extension ViewController {
     func getSearchValue(searchValue SearchValue: String) {
         self.SearchValue = SearchValue
         sorted()
     }
-    
+
     func swapCategory(Category: Int) {
         let index = Category - 1
             if index >= 0 && index < Department.allCases.count - 1 {
@@ -94,22 +93,22 @@ extension ViewController{
             }
             sorted()
     }
-    func sorted(){
-        if(temporaryUsers.count == 0){
+    func sorted() {
+        if temporaryUsers.count == 0 {
             filteredAndSortedItems = filterAndSort(users: usersData, preferredDepartment: preferredDepartment, searchValue: SearchValue, alfavitSort: alfavitSort, birthdaySort: birthdaySort)
             self.addUsers(users: filteredAndSortedItems)
-            if (filteredAndSortedItems.count==0){
+            if filteredAndSortedItems.count==0 {
                 NotFinded.isHidden = false
                 view.bringSubviewToFront(NotFinded)
-            }else{
+            } else {
                 NotFinded.isHidden = true
             }
         }
     }
 }
 // MARK: - API Methods
-extension ViewController{
-    func APIGet(){
+extension ViewController {
+    func APIGet() {
         APIManager.shared.getUsers { result in
             DispatchQueue.main.async {
                 switch result {
@@ -118,11 +117,11 @@ extension ViewController{
                     self.temporaryUsers=[]
                     self.sorted()
                 case .failure(let error as NSError):
-                    if (error.code == -1001){
+                    if error.code == -1001 {
                         self.errorView.label.text = "Не могу обновить данные \nПроверь соединение с интернетом."
-                    }else if (error.code == 500){
+                    } else if error.code == 500 {
                         self.errorView.label.text = "Проблема на стороне сервера \nМы уже занимаемся этой проблемой."
-                    }else{
+                    } else {
                         self.errorView.label.text = "В приложении произошла ошибка \nСкоро все починим."
                     }
                     self.view.bringSubviewToFront(self.errorView)
@@ -133,7 +132,7 @@ extension ViewController{
     }
 }
 // MARK: - Animation Methods
-extension ViewController{
+extension ViewController {
     func animateViewDown() {
         self.errorViewAboutSuperview?.isActive = false
         self.errorViewToSuperview?.isActive = true
@@ -141,10 +140,10 @@ extension ViewController{
             self.view.layoutIfNeeded()
             })
     }
-    func animateViewUp(){
+    func animateViewUp() {
         self.errorViewAboutSuperview?.isActive = true
         self.errorViewToSuperview?.isActive = false
-       
+
         UIView.animate(withDuration: 1, animations: {
             self.view.layoutIfNeeded()
             })
@@ -153,9 +152,9 @@ extension ViewController{
 // MARK: - UITableViewDataSource Methods
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if temporaryUsers.count == 0{
+        if temporaryUsers.count == 0 {
             return users.count
-        }else{
+        } else {
             return temporaryUsers.count
         }
     }
@@ -163,28 +162,28 @@ extension ViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserCardCell", for: indexPath) as? UserCardTableViewCell else {
             return UITableViewCell()
         }
-        if (temporaryUsers.count == 0 ){
+        if temporaryUsers.count == 0 {
             let user = users[indexPath.row]
             cell.configure(user: user, birthday: birthdaySort)
-        }else{
+        } else {
             cell.setsample()
         }
         return cell
     }
-    func addUsers(users: [Item]){
+    func addUsers(users: [Item]) {
         self.users = users
         UserCardScroll.reloadData()
     }
     @objc func refresh(_ sender: UIRefreshControl) {
         self.animateViewUp()
-        temporaryUsers = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        temporaryUsers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         UserCardScroll.reloadData()
         APIGet()
         refreshControl.endRefreshing()
     }
 }
 // MARK: - UIViewControllerTransitioning Methods
-extension ViewController:UIViewControllerTransitioningDelegate{
+extension ViewController: UIViewControllerTransitioningDelegate {
     func sortTapped() {
         let FilterController = FilterViewController()
         FilterController.delegate = self
@@ -198,7 +197,7 @@ extension ViewController:UIViewControllerTransitioningDelegate{
         FilterController.setSort(alfavitSort: self.alfavitSort)
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(temporaryUsers.count == 0){
+        if temporaryUsers.count == 0 {
             let selectedUser = users[indexPath.row]
             let targetViewController = TargetViewController()
             let outputDateString = DateFormat(Date: selectedUser.birthday)
@@ -222,4 +221,3 @@ extension ViewController:UIViewControllerTransitioningDelegate{
         sorted()
     }
 }
-

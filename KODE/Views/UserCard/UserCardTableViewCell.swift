@@ -7,11 +7,12 @@ class UserCardTableViewCell: UITableViewCell {
     let sampleCard = SampleCardView()
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.accessoryType = .none
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func setsample(){
+    func setsample() {
         contentView.addSubview(sampleCard)
         sampleCard.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -23,14 +24,14 @@ class UserCardTableViewCell: UITableViewCell {
         ])
     }
     func configure( user: Item, birthday: Bool) {
-        if birthday{
+        if birthday {
             userCardView.UserBirthday.isHidden = false
-        }else{
+        } else {
             userCardView.UserBirthday.isHidden = true
         }
         contentView.addSubview(userCardView)
         userCardView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             userCardView.heightAnchor.constraint(equalToConstant: 84),
             userCardView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -48,4 +49,3 @@ class UserCardTableViewCell: UITableViewCell {
         userCardView.setData(firstName: user.firstName, secondName: user.lastName, userTag: user.userTag.lowercased(), userDepartment: transformString(user.department), userBirthday: DateFormatSmall(Date: user.birthday))
     }
 }
-

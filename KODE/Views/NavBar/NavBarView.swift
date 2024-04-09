@@ -1,6 +1,6 @@
 import UIKit
 
-final class NavBarView: BaseView, SearchDelegate{
+final class NavBarView: BaseView, SearchDelegate {
     weak var delegate: NavBarViewDelegate?
     var Searchlabel = SearchView()
     private var Separator = UIView()
@@ -11,7 +11,7 @@ final class NavBarView: BaseView, SearchDelegate{
     return UICollectionView(frame: .zero, collectionViewLayout: layout)
         }()
 }
-extension NavBarView{
+extension NavBarView {
     override func addViews() {
         addSubview(horizontalCollectionView)
         Searchlabel.delegate = self
@@ -32,8 +32,8 @@ extension NavBarView{
             Separator.bottomAnchor.constraint(equalTo: bottomAnchor),
             Separator.heightAnchor.constraint(equalToConstant: 0.33),
             Separator.leadingAnchor.constraint(equalTo: leadingAnchor),
-            Separator.trailingAnchor.constraint(equalTo: trailingAnchor),
-            
+            Separator.trailingAnchor.constraint(equalTo: trailingAnchor)
+
         ])
         Searchlabel.translatesAutoresizingMaskIntoConstraints = false
         horizontalCollectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,13 +56,12 @@ extension NavBarView{
     }
 }
 
-
 extension NavBarView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let label = UILabel(frame: CGRect.zero)
         label.text = Resouces.Strings.category[indexPath.item]
         label.sizeToFit()
-        
+
         let width = label.frame.width + 12
         return CGSize(width: width, height: 36)
     }
@@ -71,7 +70,7 @@ extension NavBarView: UICollectionViewDelegateFlowLayout {
 extension NavBarView: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+
         Resouces.Strings.category.count
     }
 
@@ -82,7 +81,7 @@ extension NavBarView: UICollectionViewDelegate, UICollectionViewDataSource {
         let categoryItem = Resouces.Strings.category[indexPath.item]
         cell.configure(with: categoryItem)
         cell.setFont(with: (indexPath == selectedIndex) ? Resouces.Fonts.InterSemiBold(with: 15) : Resouces.Fonts.InterMedium(with: 15))
-        
+
         cell.setTextColor(with: (indexPath == selectedIndex) ? Resouces.Colors.Black1: Resouces.Colors.Gray2
         )
         cell.setBorderColor(color: indexPath == selectedIndex ? .blue : .clear)
@@ -90,12 +89,12 @@ extension NavBarView: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if selectedIndex != indexPath {
-            
+
             let oldIndexPath = selectedIndex
             selectedIndex = indexPath
-            
+
             delegate?.swapCategory(Category: indexPath.item)
-            
+
             if let oldIndexPath = oldIndexPath {
                 collectionView.reloadItems(at: [oldIndexPath])
             }
@@ -105,7 +104,6 @@ extension NavBarView: UICollectionViewDelegate, UICollectionViewDataSource {
 }
 protocol NavBarViewDelegate: AnyObject {
     func swapCategory( Category: Int)
-    func getSearchValue(searchValue SearchValue:String)
+    func getSearchValue(searchValue SearchValue: String)
     func sortTapped()
 }
-

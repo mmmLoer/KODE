@@ -1,6 +1,6 @@
 import UIKit
 
-class TargetViewController: BaseController{
+class TargetViewController: BaseController {
     private let UserImage = UIImageView()
     private let CloseButton = UIButton()
     private let UserName = UILabel()
@@ -12,7 +12,7 @@ class TargetViewController: BaseController{
     private let PhoneImage = UIImageView()
     private let PhoneNumber = UILabel()
     private let UserTag = UILabel()
-    func setName(firstName:String, secondName:String, userTag:String, department:String, Date:String, Phone:String, Age:String, avatarURL:String){
+    func setName(firstName: String, secondName: String, userTag: String, department: String, Date: String, Phone: String, Age: String, avatarURL: String) {
         UserName.text = "\(firstName) \(secondName)"
         UserTag.text = userTag
         Department.text = department
@@ -26,7 +26,7 @@ class TargetViewController: BaseController{
         }
     }
 }
-extension TargetViewController{
+extension TargetViewController {
     override func addViews() {
         view.addSubview(UserName)
         view.addSubview(CloseButton)
@@ -52,7 +52,7 @@ extension TargetViewController{
         AgeLabel.translatesAutoresizingMaskIntoConstraints = false
         PhoneImage.translatesAutoresizingMaskIntoConstraints = false
         PhoneNumber.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             CloseButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
             CloseButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
@@ -79,9 +79,9 @@ extension TargetViewController{
             PhoneImage.topAnchor.constraint(equalTo: AgeImage.bottomAnchor, constant: 30),
             PhoneImage.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 15),
             PhoneNumber.leadingAnchor.constraint(equalTo: PhoneImage.trailingAnchor, constant: 12),
-            PhoneNumber.centerYAnchor.constraint(equalTo: PhoneImage.centerYAnchor),
+            PhoneNumber.centerYAnchor.constraint(equalTo: PhoneImage.centerYAnchor)
         ])
-            
+
     }
     override func configure() {
         view.backgroundColor = Resouces.Colors.Gray3
@@ -110,18 +110,16 @@ extension TargetViewController{
         PhoneNumber.addGestureRecognizer(tapList)
         PhoneNumber.isUserInteractionEnabled = true
     }
-    @objc func CloseController(){
+    @objc func CloseController() {
         dismiss(animated: true, completion: nil)
     }
     @objc func callButtonTapped() {
         if let phoneURL = URL(string: "tel://\(PhoneNumber.text!)") {
             if UIApplication.shared.canOpenURL(phoneURL) {
                 UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
-            }else{
+            } else {
                 print("Ваше устройство не поддерживает эту функцию.")
             }
         }
     }
 }
-
-

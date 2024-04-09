@@ -6,8 +6,8 @@
 //
 
 import UIKit
-enum Resouces{
-    enum Colors{
+enum Resouces {
+    enum Colors {
         static var Black1 = UIColor(hexString: "#050510")
         static var Gray1 = UIColor(hexString: "#C3C3C6")
         static var Gray2 = UIColor(hexString: "#97979B")
@@ -17,7 +17,7 @@ enum Resouces{
         static var Red1 = UIColor(hexString: "#F44336")
     }
     enum Strings {
-        static var category = ["Все","Android","iOS", "Designers", "Management", "QA", "Back Office", "Frontend", "HR", "PR","Backend","Support","Analytics"]
+        static var category = ["Все", "Android", "iOS", "Designers", "Management", "QA", "Back Office", "Frontend", "HR", "PR", "Backend", "Support", "Analytics"]
     }
     enum Images {
         enum TabBar {
