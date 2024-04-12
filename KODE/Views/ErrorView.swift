@@ -16,7 +16,7 @@ extension ErrorView {
     }
     override func configure() {
         backgroundColor = Resouces.Colors.Red1
-        label.font = Resouces.Fonts.InterMedium(with: 13)
+        label.font = Resouces.Fonts.interMedium(with: 13)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.textColor = .white

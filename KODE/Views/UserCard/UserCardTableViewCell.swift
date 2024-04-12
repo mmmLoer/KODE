@@ -25,9 +25,9 @@ class UserCardTableViewCell: UITableViewCell {
     }
     func configure( user: Item, birthday: Bool) {
         if birthday {
-            userCardView.UserBirthday.isHidden = false
+            userCardView.userBirthday.isHidden = false
         } else {
-            userCardView.UserBirthday.isHidden = true
+            userCardView.userBirthday.isHidden = true
         }
         contentView.addSubview(userCardView)
         userCardView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +46,6 @@ class UserCardTableViewCell: UITableViewCell {
                 print("Не удалось загрузить изображение.")
             }
         }
-        userCardView.setData(firstName: user.firstName, secondName: user.lastName, userTag: user.userTag.lowercased(), userDepartment: transformString(user.department), userBirthday: DateFormatSmall(Date: user.birthday))
+        userCardView.setData(firstName: user.firstName, secondName: user.lastName, userTag: user.userTag.lowercased(), userDepartment: transformString(user.department), userBirthday: dateFormatSmall(date: user.birthday))
     }
 }

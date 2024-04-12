@@ -19,10 +19,10 @@ class CategoryCell: UICollectionViewCell {
             borderLayer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             borderLayer.heightAnchor.constraint(equalToConstant: 2)
         ])
-        label.font = Resouces.Fonts.InterMedium(with: 15)
+        label.font = Resouces.Fonts.interMedium(with: 15)
         label.textColor = .black
         label.textAlignment = .center
-        }
+    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

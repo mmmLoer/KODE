@@ -26,10 +26,10 @@ extension UserNotFindedView {
     override func configure() {
         icon.image = Resouces.Images.Common.Glass
         label1.text = "Мы никого не нашли"
-        label1.font = Resouces.Fonts.InterSemiBold(with: 17)
+        label1.font = Resouces.Fonts.interSemiBold(with: 17)
         label1.textColor = Resouces.Colors.Black1
         label2.text = "Попробуй скорректировать запрос"
-        label2.font = Resouces.Fonts.InterSemiBold(with: 16)
+        label2.font = Resouces.Fonts.interSemiBold(with: 16)
         label2.textColor = Resouces.Colors.Gray2
     }
 }

@@ -1,0 +1,21 @@
+./UsersData.swift
+./Applicatiom/AppDelegate.swift
+./Applicatiom/SceneDelegate.swift
+./APIManager.swift
+./Filter.swift
+./Controllers/ViewController.swift
+./Controllers/UserCardController.swift
+./Controllers/FilterController.swift
+./Views/NavBar/CategoryCell.swift
+./Views/NavBar/SearchView.swift
+./Views/NavBar/NavBarView.swift
+./Views/UserNotFindedView.swift
+./Views/UserCard/UserCard.swift
+./Views/UserCard/UserCardTableViewCell.swift
+./Views/UserCard/EmptyUserCard.swift
+./Views/ErrorView.swift
+./Helpers/Resouces.swift
+./Helpers/Extensions/UIColor + ext.swift
+./Helpers/DataFunc.swift
+./Base/BaseController.swift
+./Base/BaseView.swift

@@ -24,7 +24,7 @@ enum Resouces {
             static var Search = UIImage(named: "Search")
             static var List = UIImage(named: "List")
             static var Clear = UIImage(named: "Clear")
-                    }
+        }
         enum Common {
             static var Selected = UIImage(named: "Selected")
             static var UnSelected = UIImage(named: "UnSelected")
@@ -36,16 +36,16 @@ enum Resouces {
         }
     }
     enum Fonts {
-        static func InterMedium(with size: CGFloat) -> UIFont {
+        static func interMedium(with size: CGFloat) -> UIFont {
             UIFont(name: "Inter-Medium", size: size) ?? UIFont()
         }
-        static func InterRegular(with size: CGFloat) -> UIFont {
+        static func interRegular(with size: CGFloat) -> UIFont {
             UIFont(name: "Inter-Regular", size: size) ?? UIFont()
         }
-        static func InterSemiBold(with size: CGFloat) -> UIFont {
+        static func interSemiBold(with size: CGFloat) -> UIFont {
             UIFont(name: "Inter-SemiBold", size: size) ?? UIFont()
         }
-        static func InterBold(with size: CGFloat) -> UIFont {
+        static func interBold(with size: CGFloat) -> UIFont {
             UIFont(name: "Inter-Bold", size: size) ?? UIFont()
         }
     }

@@ -1,67 +1,67 @@
 import UIKit
 
 final class UserCardView: BaseView {
-    private let UserImage = UIImageView()
-    private let UserName = UILabel()
-    let UserBirthday = UILabel()
-    private let UserTag = UILabel()
-    private let UserDepartment = UILabel()
+    private let userImage = UIImageView()
+    private let userName = UILabel()
+    let userBirthday = UILabel()
+    private let userTag = UILabel()
+    private let userDepartment = UILabel()
     func setData(firstName: String, secondName: String, userTag: String, userDepartment: String, userBirthday: String) {
-        UserName.text = "\(firstName) \(secondName)"
-        UserTag.text = userTag
-        UserDepartment.text = userDepartment
-        UserBirthday.text = userBirthday
+        userName.text = "\(firstName) \(secondName)"
+        self.userTag.text = userTag
+        self.userDepartment.text = userDepartment
+        self.userBirthday.text = userBirthday
     }
     func setImage(userImage: UIImage) {
-        UserImage.image = userImage
+        self.userImage.image = userImage
     }
 }
 extension UserCardView {
     override func addViews() {
-        addSubview(UserBirthday)
-        addSubview(UserImage)
-        addSubview(UserName)
-        addSubview(UserTag)
-        addSubview(UserDepartment)
+        addSubview(userBirthday)
+        addSubview(userImage)
+        addSubview(userName)
+        addSubview(userTag)
+        addSubview(userDepartment)
     }
     override func layoutViews() {
-        UserBirthday.translatesAutoresizingMaskIntoConstraints = false
-        UserImage.translatesAutoresizingMaskIntoConstraints = false
-        UserDepartment.translatesAutoresizingMaskIntoConstraints = false
-        UserName.translatesAutoresizingMaskIntoConstraints = false
-        UserTag.translatesAutoresizingMaskIntoConstraints = false
+        userBirthday.translatesAutoresizingMaskIntoConstraints = false
+        userImage.translatesAutoresizingMaskIntoConstraints = false
+        userDepartment.translatesAutoresizingMaskIntoConstraints = false
+        userName.translatesAutoresizingMaskIntoConstraints = false
+        userTag.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            UserBirthday.centerYAnchor.constraint(equalTo: centerYAnchor),
-            UserBirthday.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            UserImage.heightAnchor.constraint(equalToConstant: 72),
-            UserImage.widthAnchor.constraint(equalToConstant: 72),
-            UserImage.leadingAnchor.constraint(equalTo: leadingAnchor),
-            UserName.leadingAnchor.constraint(equalTo: UserImage.trailingAnchor, constant: 16),
-            UserName.topAnchor.constraint(equalTo: topAnchor, constant: 15),
-            UserTag.leadingAnchor.constraint(equalTo: UserName.trailingAnchor, constant: 5),
-            UserTag.topAnchor.constraint(equalTo: topAnchor, constant: 17),
-            UserDepartment.leadingAnchor.constraint(equalTo: UserImage.trailingAnchor, constant: 16),
-            UserDepartment.topAnchor.constraint(equalTo: UserTag.bottomAnchor, constant: 3)
+            userBirthday.centerYAnchor.constraint(equalTo: centerYAnchor),
+            userBirthday.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            userImage.heightAnchor.constraint(equalToConstant: 72),
+            userImage.widthAnchor.constraint(equalToConstant: 72),
+            userImage.leadingAnchor.constraint(equalTo: leadingAnchor),
+            userName.leadingAnchor.constraint(equalTo: userImage.trailingAnchor, constant: 16),
+            userName.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            userTag.leadingAnchor.constraint(equalTo: userName.trailingAnchor, constant: 5),
+            userTag.topAnchor.constraint(equalTo: topAnchor, constant: 17),
+            userDepartment.leadingAnchor.constraint(equalTo: userImage.trailingAnchor, constant: 16),
+            userDepartment.topAnchor.constraint(equalTo: userTag.bottomAnchor, constant: 3)
 
         ])
     }
     override func configure() {
         backgroundColor = .white
-        UserImage.image = Resouces.Images.Common.UserImage
-        UserImage.layer.masksToBounds = true
-        UserImage.backgroundColor = Resouces.Colors.Purple1
-        UserImage.layer.cornerRadius = 36
+        userImage.image = Resouces.Images.Common.UserImage
+        userImage.layer.masksToBounds = true
+        userImage.backgroundColor = Resouces.Colors.Purple1
+        userImage.layer.cornerRadius = 36
 
-        UserName.font = Resouces.Fonts.InterMedium(with: 16)
-        UserName.textColor = .black
+        userName.font = Resouces.Fonts.interMedium(with: 16)
+        userName.textColor = .black
 
-        UserTag.font = Resouces.Fonts.InterMedium(with: 14)
-        UserTag.textColor = .gray
+        userTag.font = Resouces.Fonts.interMedium(with: 14)
+        userTag.textColor = .gray
 
-        UserDepartment.font = Resouces.Fonts.InterRegular(with: 13)
-        UserDepartment.textColor = .gray
+        userDepartment.font = Resouces.Fonts.interRegular(with: 13)
+        userDepartment.textColor = .gray
 
-        UserBirthday.font = Resouces.Fonts.InterRegular(with: 15)
-        UserBirthday.textColor = .gray
+        userBirthday.font = Resouces.Fonts.interRegular(with: 15)
+        userBirthday.textColor = .gray
     }
 }

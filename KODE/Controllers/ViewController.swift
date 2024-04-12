@@ -8,14 +8,14 @@
 import UIKit
 // MARK: - Initial Setup
 class ViewController: BaseController, UITableViewDelegate, NavBarViewDelegate, SortViewControllerDelegate, UISheetPresentationControllerDelegate {
-    private let NotFinded = UserNotFindedView()
+    private let notFinded = UserNotFindedView()
     private var preferredDepartment = "all"
-    private var SearchValue = ""
+    private var searchValue = ""
     private var errorViewAboutSuperview: NSLayoutConstraint?
     private var errorViewToSuperview: NSLayoutConstraint?
     private var filteredAndSortedItems = [Item]()
-    private let UserCardScroll = UITableView()
-    private var NavBar = NavBarView()
+    private let userCardScroll = UITableView()
+    private var navBar = NavBarView()
     private var temporaryUsers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     private var alfavitSort = true
     private var birthdaySort = false
@@ -25,83 +25,83 @@ class ViewController: BaseController, UITableViewDelegate, NavBarViewDelegate, S
     private let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
-        UserCardScroll.reloadData()
+        userCardScroll.reloadData()
         APIGet()
     }
 }
 extension ViewController {
     override func addViews() {
-        UserCardScroll.delegate = self
-        NavBar.delegate = self
+        userCardScroll.delegate = self
+        navBar.delegate = self
         view.addSubview(errorView)
-        view.addSubview(NotFinded)
-        view.addSubview(NavBar)
-        view.addSubview(UserCardScroll)
+        view.addSubview(notFinded)
+        view.addSubview(navBar)
+        view.addSubview(userCardScroll)
     }
     override func layoutViews() {
         NSLayoutConstraint.activate([
-        NotFinded.topAnchor.constraint(equalTo: NavBar.bottomAnchor, constant: 80),
-        NotFinded.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-        NotFinded.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-        NavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-        NavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-        NavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        UserCardScroll.topAnchor.constraint(equalTo: NavBar.bottomAnchor, constant: 16),
-        UserCardScroll.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-        UserCardScroll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-        UserCardScroll.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            notFinded.topAnchor.constraint(equalTo: navBar.bottomAnchor, constant: 80),
+            notFinded.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            notFinded.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            navBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            navBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            userCardScroll.topAnchor.constraint(equalTo: navBar.bottomAnchor, constant: 16),
+            userCardScroll.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            userCardScroll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            userCardScroll.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-        errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-        errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        errorView.topAnchor.constraint(equalTo: view.topAnchor)
+            errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            errorView.topAnchor.constraint(equalTo: view.topAnchor)
         ])
         errorViewAboutSuperview = errorView.bottomAnchor.constraint(equalTo: view.topAnchor)
         errorViewToSuperview = errorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40)
         errorViewAboutSuperview?.isActive = true
         errorViewToSuperview?.isActive = false
         errorView.translatesAutoresizingMaskIntoConstraints = false
-        NotFinded.translatesAutoresizingMaskIntoConstraints = false
-        NavBar.translatesAutoresizingMaskIntoConstraints = false
-        UserCardScroll.translatesAutoresizingMaskIntoConstraints = false
+        notFinded.translatesAutoresizingMaskIntoConstraints = false
+        navBar.translatesAutoresizingMaskIntoConstraints = false
+        userCardScroll.translatesAutoresizingMaskIntoConstraints = false
     }
     override func configure() {
         view.backgroundColor = .white
 
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        UserCardScroll.refreshControl = refreshControl
-        UserCardScroll.register(UserCardTableViewCell.self, forCellReuseIdentifier: "UserCardCell")
-        UserCardScroll.dataSource = self
-        UserCardScroll.rowHeight = UITableView.automaticDimension
-        UserCardScroll.estimatedRowHeight = 200
-        UserCardScroll.backgroundColor = .white
-        UserCardScroll.separatorStyle = .none
+        userCardScroll.refreshControl = refreshControl
+        userCardScroll.register(UserCardTableViewCell.self, forCellReuseIdentifier: "UserCardCell")
+        userCardScroll.dataSource = self
+        userCardScroll.rowHeight = UITableView.automaticDimension
+        userCardScroll.estimatedRowHeight = 200
+        userCardScroll.backgroundColor = .white
+        userCardScroll.separatorStyle = .none
     }
 }
 // MARK: - Sorted Methods
 extension ViewController {
-    func getSearchValue(searchValue SearchValue: String) {
-        self.SearchValue = SearchValue
+    func getSearchValue(searchValue searchValue: String) {
+        self.searchValue = searchValue
         sorted()
     }
 
-    func swapCategory(Category: Int) {
-        let index = Category - 1
-            if index >= 0 && index < Department.allCases.count - 1 {
-                preferredDepartment = Department.allCases[index].rawValue
-            } else {
-                preferredDepartment = Department.all.rawValue
-            }
-            sorted()
+    func swapCategory(category: Int) {
+        let index = category - 1
+        if index >= 0 && index < Department.allCases.count - 1 {
+            preferredDepartment = Department.allCases[index].rawValue
+        } else {
+            preferredDepartment = Department.all.rawValue
+        }
+        sorted()
     }
     func sorted() {
-        if temporaryUsers.count == 0 {
-            filteredAndSortedItems = filterAndSort(users: usersData, preferredDepartment: preferredDepartment, searchValue: SearchValue, alfavitSort: alfavitSort, birthdaySort: birthdaySort)
+        if temporaryUsers.isEmpty {
+            filteredAndSortedItems = filterAndSort(users: usersData, preferredDepartment: preferredDepartment, searchValue: searchValue, alfavitSort: alfavitSort, birthdaySort: birthdaySort)
             self.addUsers(users: filteredAndSortedItems)
-            if filteredAndSortedItems.count==0 {
-                NotFinded.isHidden = false
-                view.bringSubviewToFront(NotFinded)
+            if filteredAndSortedItems.isEmpty {
+                notFinded.isHidden = false
+                view.bringSubviewToFront(notFinded)
             } else {
-                NotFinded.isHidden = true
+                notFinded.isHidden = true
             }
         }
     }
@@ -138,7 +138,7 @@ extension ViewController {
         self.errorViewToSuperview?.isActive = true
         UIView.animate(withDuration: 1, animations: {
             self.view.layoutIfNeeded()
-            })
+        })
     }
     func animateViewUp() {
         self.errorViewAboutSuperview?.isActive = true
@@ -146,13 +146,13 @@ extension ViewController {
 
         UIView.animate(withDuration: 1, animations: {
             self.view.layoutIfNeeded()
-            })
+        })
     }
 }
 // MARK: - UITableViewDataSource Methods
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if temporaryUsers.count == 0 {
+        if temporaryUsers.isEmpty {
             return users.count
         } else {
             return temporaryUsers.count
@@ -162,7 +162,7 @@ extension ViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserCardCell", for: indexPath) as? UserCardTableViewCell else {
             return UITableViewCell()
         }
-        if temporaryUsers.count == 0 {
+        if temporaryUsers.isEmpty {
             let user = users[indexPath.row]
             cell.configure(user: user, birthday: birthdaySort)
         } else {
@@ -172,12 +172,12 @@ extension ViewController: UITableViewDataSource {
     }
     func addUsers(users: [Item]) {
         self.users = users
-        UserCardScroll.reloadData()
+        userCardScroll.reloadData()
     }
     @objc func refresh(_ sender: UIRefreshControl) {
         self.animateViewUp()
         temporaryUsers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        UserCardScroll.reloadData()
+        userCardScroll.reloadData()
         APIGet()
         refreshControl.endRefreshing()
     }
@@ -185,37 +185,37 @@ extension ViewController: UITableViewDataSource {
 // MARK: - UIViewControllerTransitioning Methods
 extension ViewController: UIViewControllerTransitioningDelegate {
     func sortTapped() {
-        let FilterController = FilterViewController()
-        FilterController.delegate = self
-        if let sheet = FilterController.sheetPresentationController {
+        let filterController = FilterViewController()
+        filterController.delegate = self
+        if let sheet = filterController.sheetPresentationController {
             sheet.detents = [.medium(), .large()]
             sheet.prefersGrabberVisible = true
             sheet.delegate = self
         }
-        FilterController.transitioningDelegate = self
-        present(FilterController, animated: true)
-        FilterController.setSort(alfavitSort: self.alfavitSort)
+        filterController.transitioningDelegate = self
+        present(filterController, animated: true)
+        filterController.setSort(alfavitSort: self.alfavitSort)
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if temporaryUsers.count == 0 {
+        if temporaryUsers.isEmpty {
             let selectedUser = users[indexPath.row]
             let targetViewController = TargetViewController()
-            let outputDateString = DateFormat(Date: selectedUser.birthday)
-            let age = GetAge(date: selectedUser.birthday)
-            targetViewController.setName(firstName: selectedUser.firstName, secondName: selectedUser.lastName, userTag: selectedUser.userTag.lowercased(), department: transformString(selectedUser.department), Date: outputDateString, Phone: selectedUser.phone, Age: age, avatarURL: selectedUser.avatarURL)
+            let outputDateString = dateFormat(date: selectedUser.birthday)
+            let age = getAge(date: selectedUser.birthday)
+            targetViewController.setName(firstName: selectedUser.firstName, secondName: selectedUser.lastName, userTag: selectedUser.userTag.lowercased(), department: transformString(selectedUser.department), date: outputDateString, phone: selectedUser.phone, age: age, avatarURL: selectedUser.avatarURL)
             targetViewController.modalPresentationStyle = .fullScreen
             targetViewController.transitioningDelegate = self
             present(targetViewController, animated: true, completion: nil)
         }
     }
     func button1Tapped() {
-        NavBar.Searchlabel.filterCollor(alfavitSort: true)
+        navBar.searchlabel.filterCollor(alfavitSort: true)
         alfavitSort = true
         birthdaySort = false
         sorted()
     }
     func button2Tapped() {
-        NavBar.Searchlabel.filterCollor(alfavitSort: false)
+        navBar.searchlabel.filterCollor(alfavitSort: false)
         alfavitSort = false
         birthdaySort = true
         sorted()

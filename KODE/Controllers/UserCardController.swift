@@ -1,120 +1,120 @@
 import UIKit
 
 class TargetViewController: BaseController {
-    private let UserImage = UIImageView()
-    private let CloseButton = UIButton()
-    private let UserName = UILabel()
-    private let Department = UILabel()
+    private let userImage = UIImageView()
+    private let closeButton = UIButton()
+    private let userName = UILabel()
+    private let department = UILabel()
     private let bottomView = UIView()
-    private let AgeImage = UIImageView()
-    private let DateLabel = UILabel()
-    private let AgeLabel = UILabel()
-    private let PhoneImage = UIImageView()
-    private let PhoneNumber = UILabel()
-    private let UserTag = UILabel()
-    func setName(firstName: String, secondName: String, userTag: String, department: String, Date: String, Phone: String, Age: String, avatarURL: String) {
-        UserName.text = "\(firstName) \(secondName)"
-        UserTag.text = userTag
-        Department.text = department
-        DateLabel.text = Date
-        PhoneNumber.text = "+7-\(Phone)"
-        AgeLabel.text = Age
+    private let ageImage = UIImageView()
+    private let dateLabel = UILabel()
+    private let ageLabel = UILabel()
+    private let phoneImage = UIImageView()
+    private let phoneNumber = UILabel()
+    private let userTag = UILabel()
+    func setName(firstName: String, secondName: String, userTag: String, department: String, date: String, phone: String, age: String, avatarURL: String) {
+        userName.text = "\(firstName) \(secondName)"
+        self.userTag.text = userTag
+        self.department.text = department
+        dateLabel.text = date
+        phoneNumber.text = "+7-\(phone)"
+        ageLabel.text = age
         loadImage(from: avatarURL) { [self] image in
             if let image = image {
-                UserImage.image = image
+                userImage.image = image
             }
         }
     }
 }
 extension TargetViewController {
     override func addViews() {
-        view.addSubview(UserName)
-        view.addSubview(CloseButton)
-        view.addSubview(UserImage)
-        view.addSubview(UserTag)
-        view.addSubview(Department)
+        view.addSubview(userName)
+        view.addSubview(closeButton)
+        view.addSubview(userImage)
+        view.addSubview(userTag)
+        view.addSubview(department)
         view.addSubview(bottomView)
-        bottomView.addSubview(AgeImage)
-        bottomView.addSubview(DateLabel)
-        bottomView.addSubview(AgeLabel)
-        bottomView.addSubview(PhoneImage)
-        bottomView.addSubview(PhoneNumber)
+        bottomView.addSubview(ageImage)
+        bottomView.addSubview(dateLabel)
+        bottomView.addSubview(ageLabel)
+        bottomView.addSubview(phoneImage)
+        bottomView.addSubview(phoneNumber)
     }
     override func layoutViews() {
-        Department.translatesAutoresizingMaskIntoConstraints = false
-        UserTag.translatesAutoresizingMaskIntoConstraints = false
-        UserName.translatesAutoresizingMaskIntoConstraints = false
-        UserImage.translatesAutoresizingMaskIntoConstraints = false
-        CloseButton.translatesAutoresizingMaskIntoConstraints = false
+        department.translatesAutoresizingMaskIntoConstraints = false
+        userTag.translatesAutoresizingMaskIntoConstraints = false
+        userName.translatesAutoresizingMaskIntoConstraints = false
+        userImage.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
         bottomView.translatesAutoresizingMaskIntoConstraints = false
-        AgeImage.translatesAutoresizingMaskIntoConstraints = false
-        DateLabel.translatesAutoresizingMaskIntoConstraints = false
-        AgeLabel.translatesAutoresizingMaskIntoConstraints = false
-        PhoneImage.translatesAutoresizingMaskIntoConstraints = false
-        PhoneNumber.translatesAutoresizingMaskIntoConstraints = false
+        ageImage.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        ageLabel.translatesAutoresizingMaskIntoConstraints = false
+        phoneImage.translatesAutoresizingMaskIntoConstraints = false
+        phoneNumber.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            CloseButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-            CloseButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            UserImage.heightAnchor.constraint(equalToConstant: 104),
-            UserImage.widthAnchor.constraint(equalToConstant: 104),
-            UserImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            UserImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-            UserName.topAnchor.constraint(equalTo: UserImage.bottomAnchor, constant: 10),
-            UserName.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            UserTag.centerYAnchor.constraint(equalTo: UserName.centerYAnchor),
-            UserTag.leadingAnchor.constraint(equalTo: UserName.trailingAnchor, constant: 3),
-            Department.topAnchor.constraint(equalTo: UserName.bottomAnchor, constant: 10),
-            Department.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            bottomView.topAnchor.constraint(equalTo: Department.bottomAnchor, constant: 10),
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            userImage.heightAnchor.constraint(equalToConstant: 104),
+            userImage.widthAnchor.constraint(equalToConstant: 104),
+            userImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            userImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+            userName.topAnchor.constraint(equalTo: userImage.bottomAnchor, constant: 10),
+            userName.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            userTag.centerYAnchor.constraint(equalTo: userName.centerYAnchor),
+            userTag.leadingAnchor.constraint(equalTo: userName.trailingAnchor, constant: 3),
+            department.topAnchor.constraint(equalTo: userName.bottomAnchor, constant: 10),
+            department.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            bottomView.topAnchor.constraint(equalTo: department.bottomAnchor, constant: 10),
             bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            AgeImage.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 30),
-            AgeImage.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 15),
-            DateLabel.leadingAnchor.constraint(equalTo: AgeImage.trailingAnchor, constant: 12),
-            DateLabel.centerYAnchor.constraint(equalTo: AgeImage.centerYAnchor),
-            AgeLabel.centerYAnchor.constraint(equalTo: AgeImage.centerYAnchor),
-            AgeLabel.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -15),
-            PhoneImage.topAnchor.constraint(equalTo: AgeImage.bottomAnchor, constant: 30),
-            PhoneImage.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 15),
-            PhoneNumber.leadingAnchor.constraint(equalTo: PhoneImage.trailingAnchor, constant: 12),
-            PhoneNumber.centerYAnchor.constraint(equalTo: PhoneImage.centerYAnchor)
+            ageImage.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 30),
+            ageImage.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 15),
+            dateLabel.leadingAnchor.constraint(equalTo: ageImage.trailingAnchor, constant: 12),
+            dateLabel.centerYAnchor.constraint(equalTo: ageImage.centerYAnchor),
+            ageLabel.centerYAnchor.constraint(equalTo: ageImage.centerYAnchor),
+            ageLabel.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -15),
+            phoneImage.topAnchor.constraint(equalTo: ageImage.bottomAnchor, constant: 30),
+            phoneImage.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 15),
+            phoneNumber.leadingAnchor.constraint(equalTo: phoneImage.trailingAnchor, constant: 12),
+            phoneNumber.centerYAnchor.constraint(equalTo: phoneImage.centerYAnchor)
         ])
 
     }
     override func configure() {
         view.backgroundColor = Resouces.Colors.Gray3
         bottomView.backgroundColor = .white
-        CloseButton.setImage(Resouces.Images.Common.Close, for: .normal)
-        CloseButton.addTarget(self, action: #selector(CloseController), for: .touchUpInside)
-        UserImage.image = Resouces.Images.Common.UserImage
-        UserImage.layer.masksToBounds = true
-        UserImage.backgroundColor = Resouces.Colors.Purple1
-        UserImage.layer.cornerRadius = 52
-        UserTag.font = Resouces.Fonts.InterRegular(with: 17)
-        UserTag.textColor = Resouces.Colors.Gray2
-        UserName.font = Resouces.Fonts.InterBold(with: 24)
-        UserName.textColor = Resouces.Colors.Black1
-        Department.font = Resouces.Fonts.InterRegular(with: 13)
-        Department.textColor = Resouces.Colors.Gray4
-        DateLabel.font = Resouces.Fonts.InterMedium(with: 16)
-        DateLabel.textColor = Resouces.Colors.Black1
-        AgeLabel.font = Resouces.Fonts.InterSemiBold(with: 16)
-        AgeLabel.textColor = Resouces.Colors.Gray2
-        PhoneNumber.font = Resouces.Fonts.InterMedium(with: 16)
-        PhoneNumber.textColor = Resouces.Colors.Black1
-        PhoneImage.image = Resouces.Images.Common.Phone
-        AgeImage.image = Resouces.Images.Common.Star
+        closeButton.setImage(Resouces.Images.Common.Close, for: .normal)
+        closeButton.addTarget(self, action: #selector(closeController), for: .touchUpInside)
+        userImage.image = Resouces.Images.Common.UserImage
+        userImage.layer.masksToBounds = true
+        userImage.backgroundColor = Resouces.Colors.Purple1
+        userImage.layer.cornerRadius = 52
+        userTag.font = Resouces.Fonts.interRegular(with: 17)
+        userTag.textColor = Resouces.Colors.Gray2
+        userName.font = Resouces.Fonts.interBold(with: 24)
+        userName.textColor = Resouces.Colors.Black1
+        department.font = Resouces.Fonts.interRegular(with: 13)
+        department.textColor = Resouces.Colors.Gray4
+        dateLabel.font = Resouces.Fonts.interMedium(with: 16)
+        dateLabel.textColor = Resouces.Colors.Black1
+        ageLabel.font = Resouces.Fonts.interSemiBold(with: 16)
+        ageLabel.textColor = Resouces.Colors.Gray2
+        phoneNumber.font = Resouces.Fonts.interMedium(with: 16)
+        phoneNumber.textColor = Resouces.Colors.Black1
+        phoneImage.image = Resouces.Images.Common.Phone
+        ageImage.image = Resouces.Images.Common.Star
         let tapList = UITapGestureRecognizer(target: self, action: #selector(callButtonTapped))
-        PhoneNumber.addGestureRecognizer(tapList)
-        PhoneNumber.isUserInteractionEnabled = true
+        phoneNumber.addGestureRecognizer(tapList)
+        phoneNumber.isUserInteractionEnabled = true
     }
-    @objc func CloseController() {
+    @objc func closeController() {
         dismiss(animated: true, completion: nil)
     }
     @objc func callButtonTapped() {
-        if let phoneURL = URL(string: "tel://\(PhoneNumber.text!)") {
+        if let phoneURL = URL(string: "tel://\(phoneNumber.text!)") {
             if UIApplication.shared.canOpenURL(phoneURL) {
                 UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
             } else {

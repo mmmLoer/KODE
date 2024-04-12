@@ -9,8 +9,8 @@ func filterAndSort(users: [Item], preferredDepartment: String, searchValue: Stri
     if !searchValue.isEmpty {
         filteredAndSortedItems = filteredAndSortedItems.filter {
             $0.firstName.lowercased().hasPrefix(searchValue.lowercased()) ||
-            $0.lastName.lowercased().hasPrefix(searchValue.lowercased()) ||
-            $0.userTag.lowercased().hasPrefix(searchValue.lowercased())
+                $0.lastName.lowercased().hasPrefix(searchValue.lowercased()) ||
+                $0.userTag.lowercased().hasPrefix(searchValue.lowercased())
         }
     }
 

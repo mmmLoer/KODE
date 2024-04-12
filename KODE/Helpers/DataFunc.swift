@@ -5,25 +5,25 @@ func correctWordForYear(_ number: Int) -> String {
     let titles = ["год", "года", "лет"]
     return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[min(number % 10, 5)]]
 }
-func DateFormat(Date: String) -> String {
+func dateFormat(date: String) -> String {
     let inputDateFormat = "yyyy-MM-dd"
     let outputDateFormat = "dd MMMM yyyy"
     let dateFormatter = DateFormatter()
     dateFormatter.locale = Locale(identifier: "ru_RU")
     dateFormatter.dateFormat = inputDateFormat
-    guard let date = dateFormatter.date(from: Date) else {
+    guard let date = dateFormatter.date(from: date) else {
         fatalError("Неверный формат входной строки.")
     }
     dateFormatter.dateFormat = outputDateFormat
     let outputDateString = dateFormatter.string(from: date)
     return outputDateString
 }
-func DateFormatSmall( Date: String) -> String {
+func dateFormatSmall( date: String) -> String {
     let inputDateFormat = "yyyy-MM-dd"
     let dateFormatter = DateFormatter()
     dateFormatter.locale = Locale(identifier: "ru_RU")
     dateFormatter.dateFormat = inputDateFormat
-    guard let date = dateFormatter.date(from: Date) else {
+    guard let date = dateFormatter.date(from: date) else {
         fatalError("Неверный формат входной строки.")
     }
     dateFormatter.dateFormat = "d"
@@ -32,7 +32,7 @@ func DateFormatSmall( Date: String) -> String {
     outputDateString = "\(outputDateString) \(dateFormatter.string(from: date).prefix(3))"
     return outputDateString
 }
-func GetAge(date: String) -> String {
+func getAge(date: String) -> String {
     let inputDateFormat = "yyyy-MM-dd"
     let outputDateFormat = "dd MMMM yyyy"
 
